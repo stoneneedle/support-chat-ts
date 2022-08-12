@@ -1,0 +1,67 @@
+/* Root and scrollbar styling */
+
+:root {
+  --formBgColor: #222;
+  --formTxtColor: #ddd;
+}
+
+::-webkit-scrollbar {
+  height: 12px;
+  width: 12px;
+  background: #000;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #333;
+  -webkit-border-radius: 1ex;
+  -webkit-box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.75);
+}
+
+::-webkit-scrollbar-corner {
+  background: #000;
+}
+
+/* Chat pane styling */
+
+body, html, .root, .App, .chatroom {
+  height: 100%;
+}
+
+.chat {
+  height: 75vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.message {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: 25vh;
+}
+
+.sidebar {
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+/* Form input styling */
+
+.chat-form-label {
+  background-color: #111;
+  color: #fff;
+}
+
+.chat-form {
+  background-color: var(--formBgColor);
+  color: var(--formTxtColor);
+}
+
+.chat-form:focus {
+  background-color: var(--formBgColor);
+  color: var(--formTxtColor);
+}
+
+.chat-form::placeholder {
+  color: #fff;
+  opacity: 1;
+}
