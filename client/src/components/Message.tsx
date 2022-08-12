@@ -2,6 +2,8 @@ import React from 'react';
 import { Button, Col, Container, Form, InputGroup, Row } from 'react-bootstrap';
 
 export default function Message() {
+
+
   function handleSubmit() {
 
   }
