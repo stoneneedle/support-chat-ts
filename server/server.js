@@ -35,6 +35,47 @@ app.get("/api", (req, res) => {
   res.json({"users": ["userOne", "userTwo", "userThree", "userFour"]});
 });
 
+app.get("/api/v1/messages", (req, res) => {
+  res.set('Access-Control-Allow-Origin', 'http://localhost:5173');
+
+  let allMessages = {};
+
+  res.json({
+    "messages": allMessages
+  });
+});
+
+app.post("/api/v1/addmessage", (req, res) => {
+  let errors = [];
+  if (!req.body.message) {
+    errors.push("No message specified.");
+  }
+  if (errors.length){
+    res.status(400).json({"error":errors.join(",")});
+    return;
+  }
+  let data = {
+    message: req.body.message
+  };
+
+  db.find({_id: 0}, function (err, chatRoomObj) {
+    let newMessage = req.body.message;
+    foundChatRoomObj = chatRoomObj[0];
+    let updatedChatRoomObj = JSON.parse(JSON.stringify(foundChatRoomObj));
+    updatedChatRoomObj.chatroom.messages.push(newMessage);
+  
+    db.update({_id: 0}, {chatroom: updatedChatRoomObj.chatroom}, {}, function(err, objReplaced) {
+      db.persistence.compactDatafile();
+    });
+  
+  });
+
+  res.json({
+    "message": "success",
+    "data": data,
+  });
+
+});
 
 
 
@@ -42,15 +83,4 @@ app.get("/api", (req, res) => {
 
 
 
-// db.find({_id: 0}, function (err, chatRoomObj) {
-//   let newMessage = {message: 'Hello there all'};
-//   foundChatRoomObj = chatRoomObj[0];
-//   let updatedChatRoomObj = JSON.parse(JSON.stringify(foundChatRoomObj));
-//   updatedChatRoomObj.chatroom.messages.push(newMessage);
-
-//   db.update({_id: 0}, {chatroom: updatedChatRoomObj.chatroom}, {}, function(err, objReplaced) {
-//     db.persistence.compactDatafile();
-//   });
-
-// });
 
