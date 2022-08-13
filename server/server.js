@@ -38,11 +38,14 @@ app.get("/api", (req, res) => {
 app.get("/api/v1/messages", (req, res) => {
   res.set('Access-Control-Allow-Origin', 'http://localhost:5173');
 
-  let allMessages = {};
+  db.find({_id: 0}, function (err, chatRoomObj) {
+    let allMessages = chatRoomObj[0].chatroom.messages;
 
-  res.json({
-    "messages": allMessages
+    res.json({
+      "messages": allMessages
+    });
   });
+
 });
 
 app.post("/api/v1/addmessage", (req, res) => {
@@ -59,7 +62,7 @@ app.post("/api/v1/addmessage", (req, res) => {
   };
 
   db.find({_id: 0}, function (err, chatRoomObj) {
-    let newMessage = req.body.message;
+    let newMessage = {message: req.body.message};
     foundChatRoomObj = chatRoomObj[0];
     let updatedChatRoomObj = JSON.parse(JSON.stringify(foundChatRoomObj));
     updatedChatRoomObj.chatroom.messages.push(newMessage);
