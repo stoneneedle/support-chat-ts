@@ -5,11 +5,11 @@
 
 # DB
 /server/support-chatroom.db
+/server/support-chatroom.db.bak
 
 # dependencies
 /client/node_modules
 /server/node_modules
-/server/support-chat.db
 /.pnp
 .pnp.js
 
