@@ -1,0 +1,16 @@
+{
+  "chatroom": {
+    "messages": [
+      {
+        "message": "hello world",
+        "name": "jim",
+        "color": "#ff00ff",
+        "password": "13d249f2cb4127b40cfa757866850278793f814ded3c587fe5889e889a7a9f6c",
+        "image_url": "",
+        "page_url": "",
+        "icon_url": "",
+      },
+    ]
+  },
+  "_id": 0
+}

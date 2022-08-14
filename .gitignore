@@ -3,6 +3,9 @@
 # gitpush
 /gitpush
 
+# DB
+/server/support-chatroom.db
+
 # dependencies
 /client/node_modules
 /server/node_modules

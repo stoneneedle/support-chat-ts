@@ -1,14 +1,25 @@
+// Dependencies
 const express = require('express');
-const Nedb = require('nedb');
-const db = new Nedb('support-chatroom.db');
-db.loadDatabase();
-console.log('DB is running')
-const app = express();
-const cors = require('cors');
-
-var md5 = require("md5");
-var PORT = 5051;
+const fs = require('fs');
+var cryptojs = require('crypto-js');
 var bodyParser = require("body-parser");
+const cors = require('cors');
+var Datastore = require('nedb')
+  , db = new Datastore({ filename: 'support-chatroom.db' });
+
+// Server configuration
+const PORT = 5051;
+
+// Fix for semantic issue documented here: https://github.com/louischatriot/nedb/issues/266
+fs.readFile('support-chatroom.db', (err, data) => {
+  let dbFile = JSON.parse(data.toString());
+  db.loadDatabase();
+  db.insert({chatroom: dbFile.chatroom, _id: 0});
+});
+
+console.log('DB is running');
+
+const app = express();
 
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -17,18 +28,6 @@ app.use(bodyParser.json());
 app.listen(PORT, () => {
   console.log("Server started on port " + PORT);
 });
-
-// Chat room messages init
-let chatroom = {};
-let message = {message: 'hello world'};
-let message2 = {message: 'Cool chat'};
-
-chatroom = {
-  messages: [message, message2],
-}
-
-// Initial database state
-db.insert({chatroom: chatroom, _id: 0});
 
 app.get("/api", (req, res) => {
   res.set('Access-Control-Allow-Origin', 'http://localhost:5173');
@@ -61,11 +60,16 @@ app.post("/api/v1/addmessage", (req, res) => {
     message: req.body.message
   };
 
+  console.log('RUNNING');
+
   db.find({_id: 0}, function (err, chatRoomObj) {
+    console.log('FOUND');
     let newMessage = {message: req.body.message};
     foundChatRoomObj = chatRoomObj[0];
+    console.log(foundChatRoomObj);
     let updatedChatRoomObj = JSON.parse(JSON.stringify(foundChatRoomObj));
     updatedChatRoomObj.chatroom.messages.push(newMessage);
+    console.log(updatedChatRoomObj);
   
     db.update({_id: 0}, {chatroom: updatedChatRoomObj.chatroom}, {}, function(err, objReplaced) {
       db.persistence.compactDatafile();
@@ -79,11 +83,5 @@ app.post("/api/v1/addmessage", (req, res) => {
   });
 
 });
-
-
-
-
-
-
 
 
