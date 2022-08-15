@@ -38,8 +38,9 @@
     "active_users": [
       {
         "name": "stoney",
-        "ident": "",
-        "last_post": ""
+        "imageUrl": "imgLink",
+        "ident": "048cef6fa30609c0bd0ef70f5b91067a7173ebc2",
+        "lastPost": "12:07:41 am"
       }
     ]
   },

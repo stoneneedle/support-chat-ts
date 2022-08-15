@@ -4,28 +4,31 @@ import { checkServerIdentity } from 'tls';
 
 // Encryption
 // import sha256 from 'crypto-js/sha256';
-// import sha1 from 'crypto-js/sha1';
+import sha1 from 'crypto-js/sha1';
 
 
 export default function Message() {
+  let ident = '';
 
-  // useEffect(() => {
-  //   const url = 'https://geolocation-db.com/json/';
+  useEffect(() => {
+    const url = 'https://geolocation-db.com/json/';
 
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await fetch(url);
-  //       const json = await response.json();
+    const fetchData = async () => {
+      try {
+        const response = await fetch(url);
+        const json = await response.json();
         
-  //       console.log(sha1(json.IPv4).toString()); //.substring(0, 5)
+        ident = sha1(json.IPv4).toString();
+        console.log(ident);
+        //console.log(sha1(json.IPv4).toString()); //.substring(0, 5)
 
-  //     } catch (error) {
-  //       console.log("error", error);
-  //     }
-  //   };
+      } catch (error) {
+        console.log("error", error);
+      }
+    };
 
-  //   fetchData();
-  // }, []);
+    fetchData();
+  }, []);
 
   console.log("TEST");
 
@@ -41,8 +44,10 @@ export default function Message() {
       let name = localStorage.getItem('name'), imageUrl = localStorage.getItem('imageUrl'),
         color = localStorage.getItem('color'), pageUrl = localStorage.getItem('pageUrl'),
         password =localStorage.getItem('password'),
-        iconUrl = localStorage.getItem('iconUrl'),
-        ident = localStorage.getItem('ident');
+        iconUrl = localStorage.getItem('iconUrl');
+
+        //,
+        //ident = localStorage.getItem('ident')
 
       const msgBody = {
         msgType: "msg",

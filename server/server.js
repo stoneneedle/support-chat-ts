@@ -29,11 +29,13 @@ app.listen(PORT, () => {
   console.log("Server started on port " + PORT);
 });
 
+// Test API
 app.get("/api", (req, res) => {
   res.set('Access-Control-Allow-Origin', 'http://localhost:5173');
   res.json({"users": ["userOne", "userTwo", "userThree", "userFour"]});
 });
 
+// Read messages
 app.get("/api/v1/messages", (req, res) => {
   res.set('Access-Control-Allow-Origin', 'http://localhost:5173');
 
@@ -47,15 +49,19 @@ app.get("/api/v1/messages", (req, res) => {
 
 });
 
+// Create message in chat
 app.post("/api/v1/addmessage", (req, res) => {
   let errors = [];
+
   if (!req.body.message) {
     errors.push("No message specified.");
   }
+
   if (errors.length){
     res.status(400).json({"error":errors.join(",")});
     return;
   }
+
   let data = {
     msgType: req.body.msgType,
     message: req.body.message,
@@ -67,8 +73,6 @@ app.post("/api/v1/addmessage", (req, res) => {
     iconUrl: req.body.iconUrl,
     ident: req.body.ident,
   };
-
-  console.log('RUNNING');
 
   db.find({_id: 0}, function (err, chatRoomObj) {
     console.log('FOUND');
@@ -85,7 +89,6 @@ app.post("/api/v1/addmessage", (req, res) => {
     };
 
     foundChatRoomObj = chatRoomObj[0];
-    console.log(JSON.stringify(foundChatRoomObj));
     let updatedChatRoomObj = JSON.parse(JSON.stringify(foundChatRoomObj));
     
     // Active chat messages does not exceed 40
@@ -112,4 +115,42 @@ app.post("/api/v1/addmessage", (req, res) => {
 
 });
 
+// Authenticate potentially registered user
+app.post("/api/v1/auth", (req, res) => {
+  let errors = [];
 
+  // if (!req.body.message) {
+  //   errors.push("No message specified.");
+  // }
+
+  if (errors.length){
+    res.status(400).json({"error":errors.join(",")});
+    return;
+  }
+
+  let data = {
+    name: req.body.name,
+    password: req.body.password,
+  }
+
+  let authenticated = false;
+
+  db.find({_id: 0}, function (err, chatRoomObj) {
+    let foundUsers = chatRoomObj[0].chatroom.users;
+
+    for (let user of foundUsers) {
+      if ((user.name === data.name) && (user.password === data.password)) {
+        authenticated = true;
+      }
+    }
+
+    res.json({
+      message: (authenticated) ? "success" : "failure",
+      data: data,
+    });
+
+  });
+
+
+
+});
