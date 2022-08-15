@@ -11,7 +11,7 @@
         "pageUrl": "",
         "iconUrl": "",
         "ident": "048cef6fa30609c0bd0ef70f5b91067a7173ebc2",
-        "auth": true
+        "auth": "admin | user | none"
       }
     ],
     "message_log": [
@@ -25,7 +25,7 @@
         "pageUrl": "",
         "iconUrl": "",
         "ident": "048cef6fa30609c0bd0ef70f5b91067a7173ebc2",
-        "auth": true
+        "auth": "admin | user | none"
       }
     ],
     "users": [

@@ -16,6 +16,7 @@ import sha512 from 'crypto-js/sha512';
 
 export default function Login() {
   const dispatch = useAppDispatch();
+  let ident = '';
 
   useEffect(() => {
     const url = 'https://geolocation-db.com/json/';
@@ -25,9 +26,9 @@ export default function Login() {
         const response = await fetch(url);
         const json = await response.json();
         
-        const ident = sha1(json.IPv4).toString();
+        const apiIdent = sha1(json.IPv4).toString();
 
-        localStorage.setItem('ident', ident);
+        ident = apiIdent
 
         console.log(ident); //.substring(0, 5)
 
@@ -52,14 +53,13 @@ export default function Login() {
     localStorage.setItem('imageUrl', imageUrl);
     localStorage.setItem('color', color);
     localStorage.setItem('pageUrl', pageUrl);
-    localStorage.setItem('password', sha512(password).toString());
+    localStorage.setItem('password', password);
     localStorage.setItem('iconUrl', iconUrl);
 
-    // POST login message with JS fetch()
+    // POST login message
     (async () => {
       let name = e.target[0].value, imageUrl = e.target[1].value, color = e.target[2].value,
-      pageUrl = e.target[3].value, password = sha512(e.target[4].value).toString(), iconUrl = e.target[5].value,
-      ident = localStorage.getItem('ident');
+      pageUrl = e.target[3].value, password = sha512(e.target[4].value).toString(), iconUrl = e.target[5].value;
       const msgBody = {
         msgType: "login",
         message: name + " has logged in.",

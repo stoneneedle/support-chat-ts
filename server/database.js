@@ -58,6 +58,7 @@ for (let i = 0; i < 40; i++) {
     pageUrl: "pageurl",
     iconUrl: "iconurl",
     ident: cryptojs.SHA1(randstr(10)).toString(),
+    auth: "user",
   };
 
   message_log.push(random_message);

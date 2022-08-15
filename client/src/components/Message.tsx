@@ -1,42 +1,67 @@
 import React, { useEffect } from 'react';
 import { Button, Col, Container, Form, InputGroup, Row } from 'react-bootstrap';
-import { checkServerIdentity } from 'tls';
 
 // Encryption
 // import sha256 from 'crypto-js/sha256';
 import sha1 from 'crypto-js/sha1';
 
-
 export default function Message() {
   let ident = '';
+  let auth = '';
 
-  useEffect(() => {
-    const url = 'https://geolocation-db.com/json/';
+    // POST user authentication
+    const authUrl = 'http://localhost:5051/api/v1/auth';
 
-    const fetchData = async () => {
+    const fetchAuth = async () => {
       try {
-        const response = await fetch(url);
+        const authBody = {
+          name: localStorage.getItem('name').trim(),
+          password: localStorage.getItem('password').trim(),
+        };
+
+        console.log(authBody);
+
+        const response = await fetch(authUrl, {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(authBody)
+        });
         const json = await response.json();
         
-        ident = sha1(json.IPv4).toString();
-        console.log(ident);
-        //console.log(sha1(json.IPv4).toString()); //.substring(0, 5)
-
+        console.log(json.message);
+        auth = json.auth;
       } catch (error) {
         console.log("error", error);
       }
     };
 
-    fetchData();
-  }, []);
+  useEffect(() => {
+    // Get IP and hash with SHA1
+    const ipUrl = 'https://geolocation-db.com/json/';
 
-  console.log("TEST");
+    const fetchIP = async () => {
+      try {
+        const response = await fetch(ipUrl);
+        const json = await response.json();
+        
+        ident = sha1(json.IPv4).toString();
+      } catch (error) {
+        console.log("error", error);
+      }
+    };
+
+    fetchIP();
+    fetchAuth();
+  }, []);
 
   function handleMessage(e) {
     //e.preventDefault();
     let message = e.target[0].value;
     console.log(message);
-    // POST login message with JS fetch()
+    // POST chat message
     (async () => {
 
       let message = e.target[0].value;
@@ -45,9 +70,6 @@ export default function Message() {
         color = localStorage.getItem('color'), pageUrl = localStorage.getItem('pageUrl'),
         password =localStorage.getItem('password'),
         iconUrl = localStorage.getItem('iconUrl');
-
-        //,
-        //ident = localStorage.getItem('ident')
 
       const msgBody = {
         msgType: "msg",
@@ -58,8 +80,11 @@ export default function Message() {
         imageUrl: imageUrl,
         pageUrl: pageUrl,
         iconUrl: iconUrl,
-        ident: ident
+        ident: ident,
+        auth: auth
       };
+
+      console.log(msgBody);
 
       const loginPost = await fetch('http://localhost:5051/api/v1/addmessage', {
         method: 'POST',
@@ -73,6 +98,7 @@ export default function Message() {
     
       console.log(content);
     })();
+
   }
 
   function handleLogout() {

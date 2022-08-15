@@ -72,10 +72,10 @@ app.post("/api/v1/addmessage", (req, res) => {
     pageUrl: req.body.pageUrl,
     iconUrl: req.body.iconUrl,
     ident: req.body.ident,
+    auth: req.body.auth,
   };
 
   db.find({_id: 0}, function (err, chatRoomObj) {
-    console.log('FOUND');
     let newMessage = {
       msgType: req.body.msgType,
       message: req.body.message,
@@ -86,6 +86,7 @@ app.post("/api/v1/addmessage", (req, res) => {
       pageUrl: req.body.pageUrl,
       iconUrl: req.body.iconUrl,
       ident: req.body.ident,
+      auth: req.body.auth,
     };
 
     foundChatRoomObj = chatRoomObj[0];
@@ -133,19 +134,19 @@ app.post("/api/v1/auth", (req, res) => {
     password: req.body.password,
   }
 
-  let authenticated = false;
+  let auth = "none";
 
   db.find({_id: 0}, function (err, chatRoomObj) {
     let foundUsers = chatRoomObj[0].chatroom.users;
 
     for (let user of foundUsers) {
       if ((user.name === data.name) && (user.password === data.password)) {
-        authenticated = true;
+        auth = user.type;
       }
     }
 
     res.json({
-      message: (authenticated) ? "success" : "failure",
+      auth: auth,
       data: data,
     });
 
