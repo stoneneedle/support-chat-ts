@@ -2,14 +2,45 @@
   "chatroom": {
     "messages": [
       {
+        "msgType": "msg",
         "message": "hello world",
         "name": "jim",
         "color": "#ff00ff",
         "password": "13d249f2cb4127b40cfa757866850278793f814ded3c587fe5889e889a7a9f6c",
-        "image_url": "",
-        "page_url": "",
-        "icon_url": "",
-      },
+        "imageUrl": "",
+        "pageUrl": "",
+        "iconUrl": "",
+        "ident": "048cef6fa30609c0bd0ef70f5b91067a7173ebc2",
+        "auth": true
+      }
+    ],
+    "message_log": [
+      {
+        "msgType": "msg",
+        "message": "hello world",
+        "name": "jim",
+        "color": "#ff00ff",
+        "password": "13d249f2cb4127b40cfa757866850278793f814ded3c587fe5889e889a7a9f6c",
+        "imageUrl": "",
+        "pageUrl": "",
+        "iconUrl": "",
+        "ident": "048cef6fa30609c0bd0ef70f5b91067a7173ebc2",
+        "auth": true
+      }
+    ],
+    "users": [
+      {
+        "name": "stoney",
+        "password": "13d249f2cb4127b40cfa757866850278793f814ded3c587fe5889e889a7a9f6c",
+        "type": "admin"
+      }
+    ],
+    "active_users": [
+      {
+        "name": "stoney",
+        "ident": "",
+        "last_post": ""
+      }
     ]
   },
   "_id": 0

@@ -1,16 +1,23 @@
-import React from 'react';
-import { useAppSelector } from '../app/hooks';
 import ChatWindow from './ChatWindow';
 import Landing from './Landing';
 
-export default function App() {
-  const userEntered: boolean = useAppSelector((state) => state.chatRoom.entered.valueOf());
-  //console.log(userEntered);
+export default function ChatPane() {
+  const userSessionExists: boolean =
+    (localStorage.getItem("name") != null) || 
+    (localStorage.getItem("imageUrl") != null) || 
+    (localStorage.getItem("color") != null) || 
+    (localStorage.getItem("pageUrl") != null) || 
+    (localStorage.getItem("password") != null) || 
+    (localStorage.getItem("iconUrl") != null);
 
   let currentChatPane = <Landing />;
 
-  if (userEntered) {
+  console.log(userSessionExists);
+
+  if (userSessionExists) {
     currentChatPane = <ChatWindow />;
+  } else {
+    currentChatPane = <Landing />;
   }
 
   return(

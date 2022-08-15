@@ -1,15 +1,23 @@
-import React from 'react';
+import { useEffect } from 'react';
+
 import Message from './Message';
 import Login from './Login';
-import { useAppSelector } from '../app/hooks';
-import { current } from '@reduxjs/toolkit';
 
 export default function MsgPane() {
-  const userEntered: boolean = useAppSelector((state) => state.chatRoom.entered.valueOf());
   let currentChatPane = <Login />;
 
-  if (userEntered) {
+  const userSessionExists: boolean =
+    (localStorage.getItem("name") != null) || 
+    (localStorage.getItem("imageUrl") != null) || 
+    (localStorage.getItem("color") != null) || 
+    (localStorage.getItem("pageUrl") != null) || 
+    (localStorage.getItem("password") != null) || 
+    (localStorage.getItem("iconUrl") != null);
+  
+  if (userSessionExists) {
     currentChatPane = <Message />;
+  } else {
+    currentChatPane = <Login />;
   }
 
   return (

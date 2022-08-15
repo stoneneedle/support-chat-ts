@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 
@@ -10,11 +10,81 @@ import Button from 'react-bootstrap/Button';
 import { useAppDispatch } from '../app/hooks';
 import { toggleEntered } from '../features/chatroom/ChatRoomSlice';
 
+// Encryption
+import sha1 from 'crypto-js/sha1';
+import sha512 from 'crypto-js/sha512';
+
 export default function Login() {
   const dispatch = useAppDispatch();
 
-  function handleSubmit() {
+  useEffect(() => {
+    const url = 'https://geolocation-db.com/json/';
+
+    const fetchData = async () => {
+      try {
+        const response = await fetch(url);
+        const json = await response.json();
+        
+        const ident = sha1(json.IPv4).toString();
+
+        localStorage.setItem('ident', ident);
+
+        console.log(ident); //.substring(0, 5)
+
+      } catch (error) {
+        console.log("error", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  function handleSubmit(e) {
+    console.log(e.target[0].value, e.target[1].value, e.target[2].value, e.target[3].value, "Password Hash: ", sha512(e.target[4].value).toString(), e.target[5].value);
+    //e.preventDefault();
     dispatch(toggleEntered());
+
+    // Set local login session
+    let name = e.target[0].value, imageUrl = e.target[1].value, color = e.target[2].value,
+    pageUrl = e.target[3].value, password = sha512(e.target[4].value).toString(), iconUrl = e.target[5].value;
+
+    localStorage.setItem('name', name);
+    localStorage.setItem('imageUrl', imageUrl);
+    localStorage.setItem('color', color);
+    localStorage.setItem('pageUrl', pageUrl);
+    localStorage.setItem('password', sha512(password).toString());
+    localStorage.setItem('iconUrl', iconUrl);
+
+    // POST login message with JS fetch()
+    (async () => {
+      let name = e.target[0].value, imageUrl = e.target[1].value, color = e.target[2].value,
+      pageUrl = e.target[3].value, password = sha512(e.target[4].value).toString(), iconUrl = e.target[5].value,
+      ident = localStorage.getItem('ident');
+      const msgBody = {
+        msgType: "login",
+        message: name + " has logged in.",
+        name: name,
+        color: color,
+        password: password,
+        imageUrl: imageUrl,
+        pageUrl: pageUrl,
+        iconUrl: iconUrl,
+        ident: ident
+      };
+
+      const loginPost = await fetch('http://localhost:5051/api/v1/addmessage', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(msgBody)
+      });
+      const content = await loginPost.json();
+    
+      console.log(content);
+    })();
+
   }
 
   return(

@@ -57,24 +57,52 @@ app.post("/api/v1/addmessage", (req, res) => {
     return;
   }
   let data = {
-    message: req.body.message
+    msgType: req.body.msgType,
+    message: req.body.message,
+    name: req.body.name,
+    color: req.body.color,
+    password: req.body.password,
+    imageUrl: req.body.imageUrl,
+    pageUrl: req.body.pageUrl,
+    iconUrl: req.body.iconUrl,
+    ident: req.body.ident,
   };
 
   console.log('RUNNING');
 
   db.find({_id: 0}, function (err, chatRoomObj) {
     console.log('FOUND');
-    let newMessage = {message: req.body.message};
+    let newMessage = {
+      msgType: req.body.msgType,
+      message: req.body.message,
+      name: req.body.name,
+      color: req.body.color,
+      password: req.body.password,
+      imageUrl: req.body.imageUrl,
+      pageUrl: req.body.pageUrl,
+      iconUrl: req.body.iconUrl,
+      ident: req.body.ident,
+    };
+
     foundChatRoomObj = chatRoomObj[0];
-    console.log(foundChatRoomObj);
+    console.log(JSON.stringify(foundChatRoomObj));
     let updatedChatRoomObj = JSON.parse(JSON.stringify(foundChatRoomObj));
-    updatedChatRoomObj.chatroom.messages.push(newMessage);
-    console.log(updatedChatRoomObj);
-  
-    db.update({_id: 0}, {chatroom: updatedChatRoomObj.chatroom}, {}, function(err, objReplaced) {
-      db.persistence.compactDatafile();
-    });
-  
+    
+    // Active chat messages does not exceed 40
+    if (updatedChatRoomObj.chatroom.messages.length <= 40) {
+      updatedChatRoomObj.chatroom.messages.push(newMessage);
+
+      db.update({_id: 0}, {chatroom: updatedChatRoomObj.chatroom}, {}, function(err, objReplaced) {
+        db.persistence.compactDatafile();
+      });
+    } else {
+      updatedChatRoomObj.chatroom.messages.shift();
+      updatedChatRoomObj.chatroom.messages.push(newMessage);
+
+      db.update({_id: 0}, {chatroom: updatedChatRoomObj.chatroom}, {}, function(err, objReplaced) {
+        db.persistence.compactDatafile();
+      });
+    }
   });
 
   res.json({

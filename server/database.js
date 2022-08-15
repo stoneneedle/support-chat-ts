@@ -1,35 +1,49 @@
 // Run this script ONCE to create database
-
+var cryptojs = require('crypto-js');
 const Nedb = require('nedb');
 const db = new Nedb('support-chatroom.db');
 db.loadDatabase();
-console.log('DB is running');
+
+function randstr(length) {
+  var result = '';
+  var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  var charactersLength = characters.length;
+  for ( var i = 0; i < length; i++ ) {
+    result += characters.charAt(Math.floor(Math.random() * 
+    charactersLength));
+  }
+ return result;
+}
 
 // Initial database state
 
 let chatroom = {};
-let message =       {
-  message: "hello world",
-  name: "testuser1",
-  color: "#ff00ff",
-  password: "13d249f2cb4127b40cfa757866850278793f814ded3c587fe5889e889a7a9f6c",
-  image_url: "",
-  page_url: "",
-  icon_url: "",
-};
+let messages = [];
 
-let message2 = {
-  message: "hello world",
-  name: "testuser2",
-  color: "#ff0000",
-  password: "9f6567a6d8a2eae61a1139b193c981dd6fcc2399f07760dec8de3d469decf5aa",
-  image_url: "",
-  page_url: "",
-  icon_url: "",
-};
+let names = ['stoney', 'Valek', 'Cay', 'Jezral', 'Mystra', 'RiaBear', 'Mazzik', 'Kirkos', 'Kneesaa', 'KJ', 'Nyx'];
+let colors = ['#ff00ff', '#ff0000', '#00ff00', '#0000ff', '#00ffff', '#ffff00', '#777777', '#eeeeee'];
+let messageBodies = ['Heya!', 'Sup', 'I\'ma lurk for a while...', 'Yo', 'Quiet in here today...', 'Hi chums',
+  'Where is everyone at?', 'Wut'];
+
+for (let i = 0; i < 40; i++) {
+  let random_message = {
+    msgType: "msg",
+    message: messageBodies[Math.floor(Math.random()*messageBodies.length)],
+    name: names[Math.floor(Math.random()*names.length)],
+    color: colors[Math.floor(Math.random()*colors.length)],
+    password: cryptojs.SHA512(randstr(10)).toString(),
+    imageUrl: "imgurl",
+    pageUrl: "pageurl",
+    iconUrl: "iconurl",
+    ident: cryptojs.SHA1(randstr(10)).toString(),
+  };
+
+  messages.push(random_message);
+}
 
 chatroom = {
-  messages: [message, message2],
+  messages: messages,
 };
 
 db.insert({chatroom: chatroom, _id: 0});
+console.log('DB populated.');

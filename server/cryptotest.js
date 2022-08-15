@@ -5,6 +5,10 @@ var hashStr2 = cryptojs.SHA256("testpass").toString();
 
 console.log(hashStr);
 
+var biggerHashStr = cryptojs.SHA512("testpass").toString();
+
+console.log(biggerHashStr.length);
+
 
 
 
