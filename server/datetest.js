@@ -23,7 +23,7 @@ const timeZone = (date) => {
 // console.log(timeFormat(d));
 // console.log(timeZone(d));
 
-console.log(new Date().toLocaleTimeString('en-US', { timeZone: 'UTC'}));
+//console.log(new Date().toLocaleTimeString('en-US', { timeZone: 'UTC'}));
 
 let userlist = [];
 
@@ -67,7 +67,9 @@ async function addActiveUsers() {
   console.log(diff);
 }
 
-addActiveUsers();
+// addActiveUsers();
+
+console.log(new Date(new Date().setSeconds(Math.floor(Math.random()*60))));
 
 
 

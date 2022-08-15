@@ -42,6 +42,7 @@ body, html, .root, .App, .chatroom {
 .sidebar {
   overflow-y: scroll;
   overflow-x: hidden;
+  height: 100vh;
 }
 
 /* Form input styling */
@@ -64,4 +65,19 @@ body, html, .root, .App, .chatroom {
 .chat-form::placeholder {
   color: #fff;
   opacity: 1;
+}
+
+/* Sidebar styling */
+
+.sidebarUser {
+  text-align: center;
+}
+
+.sideImg {
+  height: 150px;
+  width: 75px;
+}
+
+.sideTxt {
+  font-size: 8pt;
 }

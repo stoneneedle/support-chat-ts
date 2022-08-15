@@ -35,7 +35,7 @@ export default function ChatWindow() {
           <React.Fragment key={i}>
             <span>
               <span style={{fontSize: '8pt'}}>{messageObj.ident.substring(0, 5)},</span>&nbsp;
-              {(messageObj.auth === "admin") ? "º" : (messageObj.auth === "user") ? "*": ""}<a href={messageObj.pageUrl}>{messageObj.name}</a>: <span style={{color: messageObj.color}}>{messageObj.message}</span>
+              {(messageObj.auth === "admin") ? "º" :(messageObj.auth === "user")?  "*": ""}<a href={messageObj.pageUrl}>{messageObj.name}</a>: <span style={{color: messageObj.color}}>{messageObj.message}</span>
             </span>
             <br />
           </React.Fragment>

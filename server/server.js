@@ -9,7 +9,7 @@ var Datastore = require('nedb')
 
 // Server configuration
 const PORT = 5051;
-const REMOVE_INACTIVE_TIMEOUT = 60000
+const REMOVE_INACTIVE_TIMEOUT = 10_000_000
 let userlist = [];
 
 // Fix for semantic issue documented here: https://github.com/louischatriot/nedb/issues/266
@@ -52,6 +52,14 @@ app.get("/api/v1/messages", (req, res) => {
 });
 
 // Read active users
+app.get("/api/v1/activeusers", (req, res) => {
+  res.set('Access-Control-Allow-Origin', 'http://localhost:5173');
+
+  res.json({
+    "userlist": userlist
+  });
+
+});
 
 // Create message in chat
 app.post("/api/v1/addmessage", (req, res) => {
@@ -186,6 +194,18 @@ app.post("/api/v1/addactiveuser", (req, res) => {
 
 });
 
+// Helper functions
+function randstr(length) {
+  var result = '';
+  var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  var charactersLength = characters.length;
+  for ( var i = 0; i < length; i++ ) {
+    result += characters.charAt(Math.floor(Math.random() * 
+    charactersLength));
+  }
+  return result;
+}
+
 // Userlist functions
 
 // Add active user to userlist
@@ -210,15 +230,25 @@ function dropActiveUsersOnTimeout() {
 
   userlist = userlist.filter(function(user) {
     let diff = now - user.lastPost;
-    console.log(diff);
     return diff < REMOVE_INACTIVE_TIMEOUT;
   });
 
-  console.log("Userlist filtered");
-  console.log(userlist);
-  
-
 }
+
+function testAddActiveUsers() {
+  let names = ['stoney', 's', 'Valek', 'Cay', 'Jezral', 'Mystra', 'RiaBear', 'Mazzik', 'Kirkos', 'Kneesaa', 'KJ', 'Nyx'];
+  for (let i = 0; i < names.length; i++) {
+    let test_user = {
+      name: names[Math.floor(Math.random()*names.length)],
+      imageUrl: "img",
+      ident: cryptojs.SHA1(randstr(10)).toString(),
+      lastPost: new Date(new Date().setSeconds(Math.floor(Math.random()*60))),
+    }
+    userlist.push(test_user);
+  }
+}
+
+testAddActiveUsers();
 
 // Set interval for removing active users on timeout
 setInterval(dropActiveUsersOnTimeout, 1000);
