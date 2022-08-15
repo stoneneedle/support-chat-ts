@@ -12,7 +12,7 @@ function randstr(length) {
     result += characters.charAt(Math.floor(Math.random() * 
     charactersLength));
   }
- return result;
+  return result;
 }
 
 // Initial database state
@@ -37,6 +37,7 @@ for (let i = 0; i < 40; i++) {
     pageUrl: "pageurl",
     iconUrl: "iconurl",
     ident: cryptojs.SHA1(randstr(10)).toString(),
+    auth: "user",
   };
 
   messages.push(random_message);
@@ -99,6 +100,7 @@ for (let i = 2; i < names.length; i++) {
   let sample_active_user = {
     name: names[i].toLowerCase(),
     imageUrl: '',
+    ident: cryptojs.SHA1(randstr(10)).toString(),
     lastPost: new Date().toLocaleTimeString('en-US', { timeZone: 'UTC'}),
   };
 

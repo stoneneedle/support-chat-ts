@@ -9,6 +9,8 @@ var Datastore = require('nedb')
 
 // Server configuration
 const PORT = 5051;
+const REMOVE_INACTIVE_TIMEOUT = 60000
+let userlist = [];
 
 // Fix for semantic issue documented here: https://github.com/louischatriot/nedb/issues/266
 fs.readFile('support-chatroom.db', (err, data) => {
@@ -48,6 +50,8 @@ app.get("/api/v1/messages", (req, res) => {
   });
 
 });
+
+// Read active users
 
 // Create message in chat
 app.post("/api/v1/addmessage", (req, res) => {
@@ -155,3 +159,70 @@ app.post("/api/v1/auth", (req, res) => {
 
 
 });
+
+app.post("/api/v1/addactiveuser", (req, res) => {
+  let errors = [];
+
+  if (errors.length){
+    res.status(400).json({"error":errors.join(",")});
+    return;
+  }
+
+  let activeUser = {
+    name: req.body.name,
+    imageUrl: req.body.imageUrl,
+    ident: req.body.ident,
+    lastPost: new Date(),
+  };
+
+  addActiveUser(activeUser);
+
+  console.log(userlist);
+
+  res.json({
+    "message": "success",
+    "activeUser": activeUser,
+  });
+
+});
+
+// Userlist functions
+
+// Add active user to userlist
+function addActiveUser(activeUserObj) {
+  let userExists = false;
+  if (userlist.length !== 0) {
+    for (user of userlist) {
+      if (user.ident === activeUserObj.ident) {
+        userExists = true;
+        user.lastPost = activeUserObj.lastPost;
+      }
+    }
+  }
+  if (!userExists) {
+    userlist.push(activeUserObj);
+  }
+}
+
+// Remove active users from userlist on timeout
+function dropActiveUsersOnTimeout() {
+  let now = new Date();
+
+  userlist = userlist.filter(function(user) {
+    let diff = now - user.lastPost;
+    console.log(diff);
+    return diff < REMOVE_INACTIVE_TIMEOUT;
+  });
+
+  console.log("Userlist filtered");
+  console.log(userlist);
+  
+
+}
+
+// Set interval for removing active users on timeout
+setInterval(dropActiveUsersOnTimeout, 1000);
+
+// Remove inactive users
+//var REMOVE_INACTIVE_TIMEOUT = 5000; // currently thinking 10000000 (10 minutes)
+
