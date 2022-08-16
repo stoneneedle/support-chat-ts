@@ -41,8 +41,8 @@ export default function Sidebar() {
             <span className="sideTxt">Posted: {userObj.lastPost}</span><br />
           </div>
           <hr />
-
         </React.Fragment>)): "Loading..."}
+      <div className="sidebarUser"><a href='/'>Refresh</a></div>
     </>
   );
 }

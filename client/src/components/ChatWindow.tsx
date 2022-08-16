@@ -28,7 +28,7 @@ export default function ChatWindow() {
 
   return(
     <>
-      <h1>Chat Window</h1>
+      <h1>Support Chat v1</h1>
 
       {(chat) ? chat.messages.map((messageObj, i) => (
         (messageObj.msgType === "msg") ?
