@@ -5,6 +5,8 @@ This project is a real-time support chat intended for small business or personal
 
 This new and improved version of the design features a React frontend to improve speed and quality of life, since the original version uses PHP and frames, causing performance lags.
 
+Although this design is intended to be more general, the original design was for a Star Wars chat room created in the early 2000s. Since then Project JJ has grown to contain a number of topic-based chats, mostly for freeform real-time text-based roleplaying.
+
 ## Usage
 The chats have an active user menu on the sidebar, a bottom login/message bar for sending chat messages, and a chat window display that also contains a landing page.
 
@@ -18,6 +20,7 @@ Additional miscellaneous libraries are used as needed, such as [Crypto-JS](https
 ## Ideas for Future Improvement
 Numerous ways of expanding the chat could follow PJJ's original design. This new system would provide additional speed and decreased time in network access for each feature.
 
+1. User Profile Creation: Registered users can make a user profile accessible when their icon link is clicked.
 1. Message Board: A Bulletin Board System (BBS)-like system for displaying long term updates and announcements is possible.
 1. Admin Panel: A view for adding/removing users, kicking/banning interface, etc. This would also include a way of seeing when a given user was last active, and based on varying time periods, understand which users have gone inactive.
 1. Admin Chat Customization Panel: A view allowing admins to customize chat refresh speed, message of the day (MOTD), default icons, and other aesthetic and functional aspects of their chat rooms.
@@ -41,6 +44,7 @@ As a chat room user, I want to see who is actively online, so that I can partici
 
 As a chat room user, I want to register for an online community, so that I can engage upon a topic of interest to me.
 
+As a chat room user, I want to create a profile, so that I can make my own web site and other users can see created content.
 
 ## Wireframes
 
