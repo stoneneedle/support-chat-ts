@@ -1,5 +1,7 @@
 // Dependencies
 const express = require('express');
+var addMinutes = require('date-fns/addMinutes');
+var compareAsc = require('date-fns/compareAsc');
 const fs = require('fs');
 var cryptojs = require('crypto-js');
 var bodyParser = require("body-parser");
@@ -9,7 +11,7 @@ var Datastore = require('nedb')
 
 // Server configuration
 const PORT = 5051;
-const REMOVE_INACTIVE_TIMEOUT = 10_000_000
+const REMOVE_INACTIVE_TIMEOUT = 600_000;
 let userlist = [];
 
 // Fix for semantic issue documented here: https://github.com/louischatriot/nedb/issues/266
@@ -224,6 +226,12 @@ function addActiveUser(activeUserObj) {
   }
 }
 
+function sortActiveUsers() {
+  userlist.sort((userA, userB) => {
+    return compareAsc(userA.lastPost, userB.lastPost);
+  });
+}
+
 // Remove active users from userlist on timeout
 function dropActiveUsersOnTimeout() {
   let now = new Date();
@@ -235,24 +243,30 @@ function dropActiveUsersOnTimeout() {
 
 }
 
+// Debug - PCG add active users
 function testAddActiveUsers() {
-  let names = ['stoney', 's', 'Valek', 'Cay', 'Jezral', 'Mystra', 'RiaBear', 'Mazzik', 'Kirkos', 'Kneesaa', 'KJ', 'Nyx'];
-  for (let i = 0; i < names.length; i++) {
+  let names = ['Stoney', 'S', 'Valek', 'Cay', 'Jezral', 'Mystra', 'RiaBear', 'Mazzik', 'Kirkos', 'Kneesaa', 'KJ', 'Nyx'];
+  let names_size = names.length;
+  for (let i = 0; i < names_size; i++) {
+    let rand_name = names[Math.floor(Math.random()*names.length)];
+    
     let test_user = {
-      name: names[Math.floor(Math.random()*names.length)],
+      name: rand_name,
       imageUrl: "img",
       ident: cryptojs.SHA1(randstr(10)).toString(),
-      lastPost: new Date(new Date().setSeconds(Math.floor(Math.random()*60))),
+      lastPost: addMinutes(new Date(), Math.random()*10),
     }
     userlist.push(test_user);
+    names.splice(names.indexOf(rand_name), 1);
   }
+
+  //console.log(userlist);
 }
 
 testAddActiveUsers();
 
 // Set interval for removing active users on timeout
 setInterval(dropActiveUsersOnTimeout, 1000);
+setInterval(sortActiveUsers, 1000);
 
-// Remove inactive users
-//var REMOVE_INACTIVE_TIMEOUT = 5000; // currently thinking 10000000 (10 minutes)
 

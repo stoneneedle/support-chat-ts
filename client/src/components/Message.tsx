@@ -99,6 +99,28 @@ export default function Message() {
       console.log(content);
     })();
 
+    // POST activeuser entry
+    (async () => {
+      let name = localStorage.getItem('name'), imageUrl = localStorage.getItem('imageUrl');
+      const activeUserBody = {
+        name: name,
+        imageUrl: imageUrl,
+        ident: ident,
+      };
+
+      const loginPost = await fetch('http://localhost:5051/api/v1/addactiveuser', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(activeUserBody)
+      });
+      const content = await loginPost.json();
+    
+      console.log(content);
+    })();
+
   }
 
   function handleLogout() {

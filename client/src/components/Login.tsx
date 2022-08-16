@@ -85,6 +85,29 @@ export default function Login() {
       console.log(content);
     })();
 
+    // POST activeuser entry
+    (async () => {
+      // let name = e.target[0].value, imageUrl = e.target[1].value, color = e.target[2].value,
+      // pageUrl = e.target[3].value, password = sha512(e.target[4].value).toString(), iconUrl = e.target[5].value;
+      const activeUserBody = {
+        name: name,
+        imageUrl: imageUrl,
+        ident: ident,
+      };
+
+      const loginPost = await fetch('http://localhost:5051/api/v1/addactiveuser', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(activeUserBody)
+      });
+      const content = await loginPost.json();
+    
+      console.log(content);
+    })();
+
   }
 
   return(
