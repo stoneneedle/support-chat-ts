@@ -30,6 +30,7 @@ Numerous ways of expanding the chat could follow PJJ's original design. This new
 ## User Stories
 
 **Chat Room Administrator**
+
 As a chat room administrator, I want to create a chat room, so that I can engage collaboratively with users on a chosen topic of discussion.
 
 As a chat room administrator, I want to add new users, so that I can
@@ -37,9 +38,11 @@ As a chat room administrator, I want to add new users, so that I can
 As a chat room administrator, I want to remove old users, so that I can keep the user list up to date as community size changes, and know how big the active user base is.
 
 **Chat Room Moderator**
+
 As a chat room moderator, I want to ban trouble users, so that I can keep the environment free from harmful content.
 
 **Chat Room User**
+
 As a chat room user, I want to see who is actively online, so that I can participate in discussions.
 
 As a chat room user, I want to register for an online community, so that I can engage upon a topic of interest to me.
