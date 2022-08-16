@@ -196,6 +196,23 @@ app.post("/api/v1/addactiveuser", (req, res) => {
 
 });
 
+app.delete("/api/v1/removeactiveuser/:ident", (req, res) => {
+  let errors = [];
+
+  if (errors.length){
+    res.status(400).json({"error":errors.join(",")});
+    return;
+  }
+
+  deleteActiveUser(req.params.ident);
+  console.log(userlist);
+
+  res.send(req.params);
+  //console.log(req.params.ident);
+
+
+});
+
 // Helper functions
 function randstr(length) {
   var result = '';
@@ -226,6 +243,12 @@ function addActiveUser(activeUserObj) {
   }
 }
 
+function deleteActiveUser(ident) {
+  userlist = userlist.filter(user => {
+    return user.ident !== ident;
+  });
+}
+
 function sortActiveUsers() {
   userlist.sort((userA, userB) => {
     return compareAsc(userA.lastPost, userB.lastPost);
@@ -252,7 +275,7 @@ function testAddActiveUsers() {
     
     let test_user = {
       name: rand_name,
-      imageUrl: "img",
+      imageUrl: "",
       ident: cryptojs.SHA1(randstr(10)).toString(),
       lastPost: addMinutes(new Date(), Math.random()*10),
     }
@@ -263,7 +286,7 @@ function testAddActiveUsers() {
   //console.log(userlist);
 }
 
-testAddActiveUsers();
+// testAddActiveUsers();
 
 // Set interval for removing active users on timeout
 setInterval(dropActiveUsersOnTimeout, 1000);

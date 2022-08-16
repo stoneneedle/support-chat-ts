@@ -6,8 +6,7 @@ import { Button, Col, Container, Form, InputGroup, Row } from 'react-bootstrap';
 import sha1 from 'crypto-js/sha1';
 
 export default function Message() {
-  let ident = '';
-  let auth = '';
+  let ident = '', auth = '';
 
     // POST user authentication
     const authUrl = 'http://localhost:5051/api/v1/auth';
@@ -99,9 +98,13 @@ export default function Message() {
       console.log(content);
     })();
 
+    // console.log("Name: ", localStorage.getItem('name'));
+    // alert(localStorage.getItem('imageUrl'));
+
     // POST activeuser entry
     (async () => {
       let name = localStorage.getItem('name'), imageUrl = localStorage.getItem('imageUrl');
+
       const activeUserBody = {
         name: name,
         imageUrl: imageUrl,
@@ -124,6 +127,52 @@ export default function Message() {
   }
 
   function handleLogout() {
+    // DELETE activeuser entry
+    (async () => {
+      const activeUserDelete = await fetch('http://localhost:5051/api/v1/removeactiveuser/' + ident, {
+        method: 'DELETE',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        }
+      });
+      const content = await activeUserDelete.json();
+    
+      console.log(content);
+    })();
+
+    // POST logout message
+    (async () => {
+      let name = localStorage.getItem('name'), imageUrl = localStorage.getItem('imageUrl'),
+        color = localStorage.getItem('color'), pageUrl = localStorage.getItem('pageUrl'),
+        password =localStorage.getItem('password'),
+        iconUrl = localStorage.getItem('iconUrl');
+
+      const msgBody = {
+        msgType: "logout",
+        message: name + " has logged out.",
+        name: name,
+        color: color,
+        password: password,
+        imageUrl: imageUrl,
+        pageUrl: pageUrl,
+        iconUrl: iconUrl,
+        ident: ident
+      };
+
+      const loginPost = await fetch('http://localhost:5051/api/v1/addmessage', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(msgBody)
+      });
+      const content = await loginPost.json();
+    
+      console.log(content);
+    })();
+
     localStorage.clear();
   }
 

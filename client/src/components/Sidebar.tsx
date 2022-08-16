@@ -29,13 +29,13 @@ export default function Sidebar() {
 
   return(
     <>
-      <p>Sidebar</p>
+      <div className="sidebarUser"><a href='/'>Refresh</a></div>
       <hr />
       {(activeUsers) ? activeUsers.userlist.map((userObj, i) => (
         <React.Fragment key={i}>
           <div className="sidebarUser">
             <span>{userObj.name}</span><br />
-            {/* <img src={userObj.imgUrl} className="sideImg" alt="Image" /> */}
+            {(userObj.imageUrl == '') ? "" : <><img src={userObj.imageUrl} className="sideImg" alt="Image" /></>}
             <br />
             <span className="sideTxt">{userObj.ident.substr(0, 5)}</span><br />
             <span className="sideTxt">Posted: {userObj.lastPost}</span><br />
