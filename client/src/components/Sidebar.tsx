@@ -38,7 +38,7 @@ export default function Sidebar() {
             {(userObj.imageUrl == '') ? "" : <><img src={userObj.imageUrl} className="sideImg" alt="Image" /></>}
             <br />
             <span className="sideTxt">{userObj.ident.substr(0, 5)}</span><br />
-            <span className="sideTxt">Posted: {userObj.lastPost}</span><br />
+            <span className="sideTxt">Posted: {new Date(Date.parse(userObj.lastPost)).toLocaleTimeString()}</span><br />
           </div>
           <hr />
         </React.Fragment>)): "Loading..."}
