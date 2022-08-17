@@ -8,6 +8,7 @@
 /server/support-chatroom.db.bak
 
 # dependencies
+/client/dist
 /client/node_modules
 /server/node_modules
 /.pnp
