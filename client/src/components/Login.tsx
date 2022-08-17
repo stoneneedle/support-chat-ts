@@ -178,8 +178,8 @@ export default function Login() {
             <Col>
               <InputGroup className="mb-2">
                 <InputGroup.Text className="chat-form-label" id="basic-addon1">Icon</InputGroup.Text>
-                <Form.Select className="chat-form" aria-label="Default select example">
-                  <option defaultValue="">Open this select menu</option>
+                <Form.Select className="chat-form" aria-label="Default select example" defaultValue="">
+                  <option value="">Choose icon</option>
                   <option value="nobody">Nobody</option>
                   <option value="droid2">R2-D2</option>
                   <option value="st_aurora">Aurora</option>

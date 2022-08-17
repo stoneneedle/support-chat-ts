@@ -24,6 +24,7 @@ let names = ['stoney', 's', 'Valek', 'Cay', 'Jezral', 'Mystra', 'RiaBear', 'Mazz
 let colors = ['#ff00ff', '#ff0000', '#00ff00', '#0000ff', '#00ffff', '#ffff00', '#777777', '#eeeeee'];
 let messageBodies = ['Heya!', 'Sup', 'I\'ma lurk for a while...', 'Yo', 'Quiet in here today...', 'Hi chums',
   'Where is everyone at?', 'Wut'];
+let icons = ['nobody', 'droid2', 'st_aurora', 'st_eclipse', 'st_imp', 'st_jedimaster', 'st_nr2'];
 
 // Sample message generation (for chat room testing)
 for (let i = 0; i < 40; i++) {
@@ -35,7 +36,7 @@ for (let i = 0; i < 40; i++) {
     password: cryptojs.SHA512(randstr(10)).toString(),
     imageUrl: "imgurl",
     pageUrl: "pageurl",
-    iconUrl: "iconurl",
+    iconUrl: icons[Math.floor(Math.random()*icons.length)],
     ident: cryptojs.SHA1(randstr(10)).toString(),
     auth: "user",
   };
