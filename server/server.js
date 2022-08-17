@@ -10,7 +10,7 @@ var Datastore = require('nedb')
   , db = new Datastore({ filename: 'support-chatroom.db' });
 
 // Server configuration
-const PORT = 5051;
+const PORT = 80; // dev 5051
 const REMOVE_INACTIVE_TIMEOUT = 600_000;
 let userlist = [];
 
@@ -24,6 +24,9 @@ fs.readFile('support-chatroom.db', (err, data) => {
 console.log('DB is running');
 
 const app = express();
+
+console.log(__dirname);
+app.use('/', express.static(__dirname + '/../client/dist'));
 
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
