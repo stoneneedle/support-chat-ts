@@ -63,7 +63,7 @@ export default function Login() {
       const msgBody = {
         msgType: "login",
         message: name + " has logged in.",
-        name: name,
+        name: name.toLowerCase(),
         color: color,
         password: password,
         imageUrl: imageUrl,
@@ -179,7 +179,7 @@ export default function Login() {
               <InputGroup className="mb-2">
                 <InputGroup.Text className="chat-form-label" id="basic-addon1">Icon</InputGroup.Text>
                 <Form.Select className="chat-form" aria-label="Default select example">
-                  <option value="" selected>Open this select menu</option>
+                  <option defaultValue="">Open this select menu</option>
                   <option value="nobody">Nobody</option>
                   <option value="droid2">R2-D2</option>
                   <option value="st_aurora">Aurora</option>
