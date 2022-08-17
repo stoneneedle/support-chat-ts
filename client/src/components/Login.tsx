@@ -63,7 +63,7 @@ export default function Login() {
       const msgBody = {
         msgType: "login",
         message: name + " has logged in.",
-        name: name.toLowerCase(),
+        name: name,
         color: color,
         password: password,
         imageUrl: imageUrl,

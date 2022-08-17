@@ -165,9 +165,6 @@ app.post("/api/v1/auth", (req, res) => {
     });
 
   });
-
-
-
 });
 
 app.post("/api/v1/addactiveuser", (req, res) => {
@@ -209,7 +206,6 @@ app.delete("/api/v1/removeactiveuser/:ident", (req, res) => {
 
   res.send(req.params);
   //console.log(req.params.ident);
-
 
 });
 

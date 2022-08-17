@@ -14,7 +14,7 @@ export default function Message() {
     const fetchAuth = async () => {
       try {
         const authBody = {
-          name: localStorage.getItem('name').trim(),
+          name: localStorage.getItem('name').trim().toLowerCase(),
           password: localStorage.getItem('password').trim(),
         };
 
