@@ -29,13 +29,12 @@ export default function ChatWindow() {
   return(
     <>
       <h1>Support Chat v1</h1>
-
       {(chat) ? chat.messages.map((messageObj, i) => (
         (messageObj.msgType === "msg") ?
           <React.Fragment key={i}>
             <span>
               <span style={{fontSize: '8pt'}}>{messageObj.ident.substring(0, 5)},</span>&nbsp;
-              {(messageObj.auth === "admin") ? "º" :(messageObj.auth === "user")?  "*": ""}<a href={messageObj.pageUrl}>{messageObj.name}</a>: <span style={{color: messageObj.color}}>{messageObj.message}</span>
+              {(messageObj.auth === "admin") ? "º" :(messageObj.auth === "user")?  "*": ""}<a href={messageObj.pageUrl}>{messageObj.name}</a>{(messageObj.iconUrl)}: <span style={{color: messageObj.color}}>{messageObj.message}</span>
             </span>
             <br />
           </React.Fragment>
@@ -47,9 +46,7 @@ export default function ChatWindow() {
         <React.Fragment key={i}>
           <span key={i}><u>LOGOUT:</u> {messageObj.name} has left the room.</span><br />
         </React.Fragment>
-
       )) : "Loading"}
-
     </>
   );
 }

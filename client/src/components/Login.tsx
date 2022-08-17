@@ -179,10 +179,14 @@ export default function Login() {
               <InputGroup className="mb-2">
                 <InputGroup.Text className="chat-form-label" id="basic-addon1">Icon</InputGroup.Text>
                 <Form.Select className="chat-form" aria-label="Default select example">
-                  <option>Open this select menu</option>
-                  <option value="1">One</option>
-                  <option value="2">Two</option>
-                  <option value="3">Three</option>
+                  <option value="" selected>Open this select menu</option>
+                  <option value="nobody">Nobody</option>
+                  <option value="droid2">R2-D2</option>
+                  <option value="st_aurora">Aurora</option>
+                  <option value="st_eclipse">Eclipse</option>
+                  <option value="st_imp">Imperial Remnant</option>
+                  <option value="st_jedimaster">Jedi Master</option>
+                  <option value="st_nr2">New Republic</option>
                 </Form.Select>
               </InputGroup>
             </Col>
