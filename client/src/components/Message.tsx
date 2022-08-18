@@ -9,7 +9,7 @@ export default function Message() {
   let ident = '', auth = '';
 
     // POST user authentication
-    const authUrl = 'http://localhost:5051/api/v1/auth';
+    const authUrl = '/api/v1/auth';
 
     const fetchAuth = async () => {
       try {
@@ -85,7 +85,7 @@ export default function Message() {
 
       console.log(msgBody);
 
-      const loginPost = await fetch('http://localhost:5051/api/v1/addmessage', {
+      const loginPost = await fetch('/api/v1/addmessage', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -111,7 +111,7 @@ export default function Message() {
         ident: ident,
       };
 
-      const loginPost = await fetch('http://localhost:5051/api/v1/addactiveuser', {
+      const loginPost = await fetch('/api/v1/addactiveuser', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -129,7 +129,7 @@ export default function Message() {
   function handleLogout() {
     // DELETE activeuser entry
     (async () => {
-      const activeUserDelete = await fetch('http://localhost:5051/api/v1/removeactiveuser/' + ident, {
+      const activeUserDelete = await fetch('/api/v1/removeactiveuser/' + ident, {
         method: 'DELETE',
         headers: {
           'Accept': 'application/json',
@@ -160,7 +160,7 @@ export default function Message() {
         ident: ident
       };
 
-      const loginPost = await fetch('http://localhost:5051/api/v1/addmessage', {
+      const loginPost = await fetch('/api/v1/addmessage', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
