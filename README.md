@@ -10,6 +10,14 @@ Although this design is intended to be more general, the original design was for
 ## Usage
 The chats have an active user menu on the sidebar, a bottom login/message bar for sending chat messages, and a chat window display that also contains a landing page.
 
+## Developer Installation
+You may use the following commands to install the chat on your system.
+
+`
+**user@machine:~$** git clone https://github.com/stoneneedle/support-chat-ts.git
+
+`
+
 ## Technologies Used
 Intended to be a light MERN stack, this project makes use of NodeJS, Vite, React Typescript, and JavaScript on the frontend.
 
