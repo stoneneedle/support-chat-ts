@@ -13,9 +13,9 @@ The chats have an active user menu on the sidebar, a bottom login/message bar fo
 ## Developer Installation
 You may use the following commands to install the chat on your system.
 
-
-  **user@machine:~$** git clone https://github.com/stoneneedle/support-chat-ts.git
-
+```
+**user@machine:~$** git clone https://github.com/stoneneedle/support-chat-ts.git
+```
 
 ## Technologies Used
 Intended to be a light MERN stack, this project makes use of NodeJS, Vite, React Typescript, and JavaScript on the frontend.
