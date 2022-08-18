@@ -14,16 +14,16 @@ The chats have an active user menu on the sidebar, a bottom login/message bar fo
 You may use the following commands to install the chat on your system.
 
 ```
-**[Terminal 1]**
-**user@machine:~$** git clone https://github.com/stoneneedle/support-chat-ts.git
-**user@machine:~$** cd support-chat-ts/server
-**user@machine:~/support-chat-ts/server$** npm i
-**user@machine:~$/support-chat-ts/server** npm run dev
+[Terminal 1]
+user@machine:~$ git clone https://github.com/stoneneedle/support-chat-ts.git
+user@machine:~$ cd support-chat-ts/server
+user@machine:~/support-chat-ts/server$ npm i
+user@machine:~$/support-chat-ts/server npm run dev
 
-**[Terminal 2]**
-**user@machine:~$** cd support-chat-ts/client
-**user@machine:~/support-chat-ts/client$** npm i
-**user@machine:~$/support-chat-ts/client** npm run dev
+[Terminal 2]
+user@machine:~$ cd support-chat-ts/client
+user@machine:~/support-chat-ts/client$ npm i
+user@machine:~$/support-chat-ts/client npm run dev
 
 ```
 
