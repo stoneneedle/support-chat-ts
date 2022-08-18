@@ -46,8 +46,9 @@ export default function Login() {
     dispatch(toggleEntered());
 
     // Set local login session
-    let name = e.target[0].value, imageUrl = e.target[1].value, color = e.target[2].value,
+    let name = (e.target[0].value === '') ? 'Noname' : e.target[0].value, imageUrl = e.target[1].value, color = e.target[2].value,
     pageUrl = e.target[3].value, password = sha512(e.target[4].value).toString(), iconUrl = e.target[5].value;
+
 
     localStorage.setItem('name', name);
     localStorage.setItem('imageUrl', imageUrl);
@@ -58,7 +59,7 @@ export default function Login() {
 
     // POST login message
     (async () => {
-      let name = e.target[0].value, imageUrl = e.target[1].value, color = e.target[2].value,
+      let name = (e.target[0].value === '') ? 'Noname' : e.target[0].value, imageUrl = e.target[1].value, color = e.target[2].value,
       pageUrl = e.target[3].value, password = sha512(e.target[4].value).toString(), iconUrl = e.target[5].value;
       const msgBody = {
         msgType: "login",
@@ -72,7 +73,7 @@ export default function Login() {
         ident: ident
       };
 
-      const loginPost = await fetch('http://localhost:5051/api/v1/addmessage', {
+      const loginPost = await fetch('/api/v1/addmessage', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -87,7 +88,7 @@ export default function Login() {
 
     // POST activeuser entry
     (async () => {
-      let name = e.target[0].value, imageUrl = e.target[1].value, color = e.target[2].value,
+      let name = (e.target[0].value === '') ? 'Noname' : e.target[0].value, imageUrl = e.target[1].value, color = e.target[2].value,
       pageUrl = e.target[3].value, password = sha512(e.target[4].value).toString(), iconUrl = e.target[5].value;
       const activeUserBody = {
         name: name,
@@ -95,7 +96,7 @@ export default function Login() {
         ident: ident,
       };
 
-      const loginPost = await fetch('http://localhost:5051/api/v1/addactiveuser', {
+      const loginPost = await fetch('/api/v1/addactiveuser', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
