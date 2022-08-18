@@ -10,7 +10,7 @@ var Datastore = require('nedb')
   , db = new Datastore({ filename: 'support-chatroom.db' });
 
 // Server configuration
-const PORT = 80; // dev 5051
+const PORT = 5051;
 const REMOVE_INACTIVE_TIMEOUT = 600_000;
 let userlist = [];
 
