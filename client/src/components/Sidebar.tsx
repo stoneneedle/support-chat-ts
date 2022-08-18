@@ -4,7 +4,7 @@ export default function Sidebar() {
   const [activeUsers, setActiveUsers] = useState(null);
 
   useEffect(() => {
-    const url = "http://localhost:5051/api/v1/activeusers";
+    const url = "/api/v1/activeusers";
 
     const fetchData = async () => {
       try {
