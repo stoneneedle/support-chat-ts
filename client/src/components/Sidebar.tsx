@@ -42,7 +42,7 @@ export default function Sidebar() {
           </div>
           <hr />
         </React.Fragment>)): "Loading..."}
-      <div className="sidebarUser"><a href='/'>Refresh</a></div>
+      <div className="sidebarUser"><a href='./'>Refresh</a></div>
     </>
   );
 }
