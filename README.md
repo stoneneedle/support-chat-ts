@@ -69,8 +69,8 @@ As a chat room user, I want to create a profile, so that I can make my own web s
 ## Wireframes
 
 ### Wireframe 1 (Index)
-![Support Chat Wireframe 1](https://drive.google.com/uc?export=view&id=1y4rNs3WE38eIUTX38CdAvdrtycTqYe03 "Support Chat 1")
-![Support Chat Wireframe 2](https://drive.google.com/uc?export=view&id=1jxkYCXMfyRvyIwO9y_CM_cA5ddp_o4JX "Support Chat 2")
+![Support Chat Wireframe 1](https://jamesgroth.net/assets/wireframes/SupportChat.png "Support Chat 1")
+![Support Chat Wireframe 2](https://jamesgroth.net/assets/wireframes/SupportChat2.png "Support Chat 2")
 
 ## References
 Project JJ. (2022). "Project JJ Chats - Let Worlds Unfold." Retrieved August 16, 2022, from https://pjj.cc/.
