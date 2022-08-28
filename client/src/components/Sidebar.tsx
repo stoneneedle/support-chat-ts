@@ -29,7 +29,7 @@ export default function Sidebar() {
 
   return(
     <>
-      <div className="sidebarUser"><a href='/'>Refresh</a></div>
+      <div className="sidebarUser"><a href='./'>Refresh</a></div>
       <hr />
       {(activeUsers) ? activeUsers.userlist.map((userObj, i) => (
         <React.Fragment key={i}>
