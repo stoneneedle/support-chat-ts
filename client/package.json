@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build && cp -r ~/support-chat-ts/client/src/assets/icons ~/support-chat-ts/client/dist/assets/ && cp -r ~/support-chat-ts/client/dist /var/www/jamesgroth.net/html/",
+    "build": "tsc && vite build && cp -r ~/support-chat-ts/client/src/assets/icons ~/support-chat-ts/client/dist/assets/ && mkdir -p /var/www/jamesgroth.net/html/chat && cp -r ~/support-chat-ts/client/dist /var/www/jamesgroth.net/html/chat",
     "preview": "vite preview"
   },
   "dependencies": {
